@@ -201,6 +201,9 @@ void SpircHandler::handleFrame(std::vector<uint8_t>& data) {
 
       // Stop the current track, if any
       trackPlayer->resetState();
+      // WLAN-Speaker: let the sink drop the old track right away instead of
+      // playing it until PLAYBACK_START (skip from the app arrives as Load)
+      sendEvent(EventType::FLUSH);
       break;
     }
     case MessageType_kMessageTypeReplace: {
